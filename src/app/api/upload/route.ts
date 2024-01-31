@@ -23,6 +23,9 @@ export async function POST(request: Request) {
   });
 
   try {
+    const downloadVideoContent = await fetch("https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4");
+    const videoContent = await downloadVideoContent.body
+    // downloadVideoContent.arrayBuffer();
     const res = await youtube.videos.insert({
       part: ["snippet", "status"],
       requestBody: {
@@ -35,8 +38,7 @@ export async function POST(request: Request) {
         },
       },
       media: {
-        body: "./test.mp4",
-        mimeType: "video/mp4",
+        body: videoContent
       },
     });
     console.log("video uploaded", res.data);
@@ -49,44 +51,4 @@ export async function POST(request: Request) {
   return NextResponse.json({ message: "Hello, Next.js!" });
 }
 
-//// upload code
-
-// const handleUpload = async () => {
-//     if (!session){
-//       return
-//     }
-//     const auth = new google.auth.OAuth2({
-//       clientId: process.env.GOOGLE_CLIENT_ID,
-//       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//     });
-
-//     auth.setCredentials({
-//       access_token: session?.data?.user?.accessToken,
-//     });
-//     const youtube = google.youtube({
-//       version: "v3",
-//       auth,
-//     });
-
-//     try {
-//       const res = await youtube.videos.insert({
-//         part: ["snippet","status"],
-//         requestBody: {
-//           snippet: {
-//             title: "test",
-//             description: "test",
-//           },
-//           status: {
-//             privacyStatus: "private",
-//           },
-//         },
-//         media: {
-//           body: "./test.mp4",
-//         }
-//       })
-//       console.log('video uploaded', res.data);
-
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
+// start from video parsing
