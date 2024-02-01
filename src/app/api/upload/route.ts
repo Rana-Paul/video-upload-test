@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { google } from "googleapis";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import {creteStream} from '@/app/helper/read-stream'
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
@@ -23,8 +24,10 @@ export async function POST(request: Request) {
   });
 
   try {
-    const downloadVideoContent = await fetch("https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4");
-    const videoContent = await downloadVideoContent.body
+    const videoContent = await creteStream('https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4');
+    console.log("videoContent"+videoContent);
+    
+
     // downloadVideoContent.arrayBuffer();
     const res = await youtube.videos.insert({
       part: ["snippet", "status"],
