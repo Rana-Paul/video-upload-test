@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   });
 
   try {
-    const videoContent = await creteStream('https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4');
+    const videoContent = await creteStream('https://utfs.io/f/b99b4e90-1c38-4836-b69a-85c708d1dd7d-1uswaj.mp4');
     console.log("videoContent"+videoContent);
     
 
