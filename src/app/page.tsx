@@ -12,7 +12,7 @@ export default function Home() {
   const test = async() => {
     const data = await fetch('/api/upload', {
       method: 'POST',
-      body: JSON.stringify({"data": "test"}),
+      body: JSON.stringify({"data": "test2"}),
       headers: {
         'Content-Type': 'application/json'
       }

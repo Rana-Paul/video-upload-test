@@ -1,3 +1,4 @@
+"use client";
 import { Readable } from "stream";
 export const creteStream = async (videoUrl: string) => {
   try {
